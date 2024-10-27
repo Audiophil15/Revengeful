@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://chrdrrx4sur8g"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_ncn52"]
+[ext_resource type="PackedScene" uid="uid://d35l7y647xkvb" path="res://Scenes/Map.tscn" id="1_sku0v"]
+[ext_resource type="PackedScene" uid="uid://fhgw75jhgswn" path="res://Scenes/Player.tscn" id="2_ku6wg"]
+
+[node name="Level" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ncn52")
+
+[node name="Map" parent="." instance=ExtResource("1_sku0v")]
+
+[node name="Player" parent="." instance=ExtResource("2_ku6wg")]
+position = Vector2(543, 289)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3.855, 3.855)
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+position_smoothing_enabled = true
