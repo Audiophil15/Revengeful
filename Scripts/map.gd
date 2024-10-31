@@ -1,6 +1,5 @@
 extends Node2D
 
-var tilesspace = []
 const markovmatrix = [
 	[0.750, 0.050, 0.050, 0.030, 0.030, 0.020, 0.030, 0.030, 0.010, 0.000, 0.000],	#0
 	[0.775, 0.025, 0.050, 0.030, 0.030, 0.020, 0.030, 0.030, 0.010, 0.000, 0.000],	#1
@@ -15,25 +14,21 @@ const markovmatrix = [
 	[0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.800, 0.200],	#10
 ]
 
-var test = 0
+const test = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if test :
-		var v = Vector2i(0,50)
-		for i in range(10) :
-			v = generatechunk(0, v)
-		for k in range(1,6) :
-			for i in range(2) :
-				v = generatechunk(k, v)
-		
-	pass # Replace with function body.
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func tprocess(_delta: float) -> void:
-	#pass
+func testmap() -> void :
+	var v = Vector2i(0,50)
+	for k in range(8) :
+		for i in range(2) :
+			v = generatechunk(k, v)
+	v = generatechunk(8, v)
+	v = generatechunk(10, v)
+	v = generatechunk(9, v)
 
-func generatetable(sizex, sizey) :
+func generatetable(sizex, sizey) -> Array :
 	var table = []
 	for i in range(sizex) :
 		table.append([])
@@ -41,7 +36,7 @@ func generatetable(sizex, sizey) :
 			table[i].append(-1)
 	return table
 
-func generatesequence(len, mm) :
+func generatesequence(len, mm) -> Array  :
 	var seq = [0.,0.,0.,0.,0.]
 	var values = range(11)
 	var c = 0
@@ -50,9 +45,11 @@ func generatesequence(len, mm) :
 		seq.append(c)
 	return seq
 
-func generatechunk(id: int, xyo: Vector2i) :
+func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 	var dx = 0
 	var dy = 0
+	# For each type of chunk, a sequence of tiles are placed from the initial position xyo
+	# position of the tile, ID of the tileset (only 0 for now), position in the tile atlas
 	match id :
 		0 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
@@ -101,26 +98,41 @@ func generatechunk(id: int, xyo: Vector2i) :
 		6 :
 			for i in range(3) :
 				for j in range(2) :
-					$Ground.set_cell(xyo+Vector2i(i+j, -i), 0, Vector2i(3, 6))
+					$Ground.set_cell(xyo+Vector2i(i*2+j, -i), 0, Vector2i(3, 6))
 			$Ground.set_cell(xyo+Vector2i(2, 0), 0, Vector2i(3, 12))
-			$Ground.set_cell(xyo+Vector2i(5, -1), 0, Vector2i(3, 12))
+			$Ground.set_cell(xyo+Vector2i(4, -1), 0, Vector2i(3, 12))
 			dx += 6
-			dy += 2
+			dy += -2
 		7 :
 			for i in range(3) :
 				for j in range(2) :
-					$Ground.set_cell(xyo+Vector2i(i+j, i), 0, Vector2i(3, 6))
+					$Ground.set_cell(xyo+Vector2i(i*2+j, i), 0, Vector2i(3, 6))
 			$Ground.set_cell(xyo+Vector2i(1, 1), 0, Vector2i(1, 12))
 			$Ground.set_cell(xyo+Vector2i(3, 2), 0, Vector2i(1, 12))
 			dx += 6
 			dy += 2
-		
+		8 :
+			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
+			$Ground.set_cell(xyo+Vector2i(1, 0), 0, Vector2i(14, 6))
+			for i in range(25) :
+				$Ground.set_cell(xyo+Vector2i(1, 1+i), 0, Vector2i(14, 7))
+			dx += 3
+		9 :
+			$Ground.set_cell(xyo+Vector2i(2, 0), 0, Vector2i(3, 6))
+			$Ground.set_cell(xyo+Vector2i(1, 0), 0, Vector2i(1, 6))
+			for i in range(25) :
+				$Ground.set_cell(xyo+Vector2i(1, 1+i), 0, Vector2i(1, 7))
+			dx += 3
+		10 :
+			$Ground.set_cell(xyo+Vector2i(0, -1), 0, Vector2i(2, 3))
+			$Ground.set_cell(xyo+Vector2i(1, -1), 0, Vector2i(4, 3))
+			#$Ground.set_cell(xyo+Vector2i(3, -1), 0, Vector2i(4, 3))
+			dx += 2
 		_ :
-			push_error("Wrong chunk ID")
+			push_warning("Wrong chunk ID")
 			pass
 	return xyo+Vector2i(dx, dy)
 
-func sequencetotiles(sequence, xyo) :
+func sequencetotiles(sequence, xyo) -> void :
 	for i in sequence :
 		xyo = generatechunk(i, xyo)
-	pass
