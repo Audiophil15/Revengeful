@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://htyb63eevoux"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_v8amo"]
+
+[node name="Game Manager" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v8amo")
+
+[node name="Pausebg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13, 0.0716083, 0.0663, 0.470588)
+
+[node name="Pausable" type="Control" parent="."]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

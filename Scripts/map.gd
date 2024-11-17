@@ -45,6 +45,10 @@ func generatesequence(len, mm) -> Array  :
 		seq.append(c)
 	return seq
 
+func addEnemy(cellpos) :
+	var cellsize = $Ground.tile_set.tile_size.x
+	Globals.enemiesplacement.append(Vector2(cellpos.x*cellsize, cellpos.y*cellsize-16-25))
+
 func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 	var dx = 0
 	var dy = 0
@@ -54,6 +58,9 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 		0 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
 			dx += 1
+			
+			if (randf()<0.01) :
+				addEnemy(xyo+Vector2i(dx,dy))
 		1 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
 			$Ground.set_cell(xyo+Vector2i(1,0), 0, Vector2i(3, 12))
@@ -95,21 +102,23 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			for i in range(span) :
 				$Ground.set_cell(xyo+Vector2i(3+i, -2), 0, Vector2i(3, 4))
 			dx += 6 + span # 2 of ground and 1 of platform each side + the span of the middle part
+			
+			addEnemy(Vector2(xyo)+Vector2(dx/2, dy))
 		6 :
 			for i in range(3) :
-				for j in range(2) :
-					$Ground.set_cell(xyo+Vector2i(i*2+j, -i), 0, Vector2i(3, 6))
-			$Ground.set_cell(xyo+Vector2i(2, 0), 0, Vector2i(3, 12))
-			$Ground.set_cell(xyo+Vector2i(4, -1), 0, Vector2i(3, 12))
-			dx += 6
+				for j in range(4) :
+					$Ground.set_cell(xyo+Vector2i(i*4+j, -i), 0, Vector2i(3, 6))
+			for i in range(2) :
+				$Ground.set_cell(xyo+Vector2i((i+1)*4, -i), 0, Vector2i(3, 12))
+			dx += 3*4
 			dy += -2
 		7 :
 			for i in range(3) :
-				for j in range(2) :
-					$Ground.set_cell(xyo+Vector2i(i*2+j, i), 0, Vector2i(3, 6))
-			$Ground.set_cell(xyo+Vector2i(1, 1), 0, Vector2i(1, 12))
-			$Ground.set_cell(xyo+Vector2i(3, 2), 0, Vector2i(1, 12))
-			dx += 6
+				for j in range(4) :
+					$Ground.set_cell(xyo+Vector2i(i*4+j, i), 0, Vector2i(3, 6))
+			for i in range(2) :
+				$Ground.set_cell(xyo+Vector2i((i+1)*4-1, i+1), 0, Vector2i(1, 12))
+			dx += 3*4
 			dy += 2
 		8 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))

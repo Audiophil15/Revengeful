@@ -11,8 +11,14 @@ texture = ExtResource("1_jt7ep")
 4:3/0 = 0
 6:3/0 = 0
 2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, -8, -8, -8, -4.125, 8, -4.125, 8, -8)
+2:4/0/physics_layer_0/polygon_0/one_way = true
 3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3.75, -8, -8, 8, -8, 8, -3.875)
+3:4/0/physics_layer_0/polygon_0/one_way = true
 4:4/0 = 0
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -4, -8, -4)
+4:4/0/physics_layer_0/polygon_0/one_way = true
 6:4/0 = 0
 2:5/0 = 0
 4:5/0 = 0
@@ -187,7 +193,7 @@ texture = ExtResource("1_jt7ep")
 4:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_fovcp"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 15
 sources/0 = SubResource("TileSetAtlasSource_5ftnf")
 
 [node name="Map" type="Node2D"]
