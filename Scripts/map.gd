@@ -21,6 +21,7 @@ func _ready() -> void:
 
 func testmap() -> void :
 	var v = Vector2i(0,50)
+	v = generatechunk(-1, v)
 	for k in range(8) :
 		for i in range(2) :
 			v = generatechunk(k, v)
@@ -37,7 +38,7 @@ func generatetable(sizex, sizey) -> Array :
 	return table
 
 func generatesequence(len, mm) -> Array  :
-	var seq = [0.,0.,0.,0.,0.]
+	var seq = [-1, 0.,0.,0.,0.,0.]
 	var values = range(11)
 	var c = 0
 	for i in range(len-1) :
@@ -55,6 +56,9 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 	# For each type of chunk, a sequence of tiles are placed from the initial position xyo
 	# position of the tile, ID of the tileset (only 0 for now), position in the tile atlas
 	match id :
+		-1 :
+			for i in range(10) :
+				$Ground.set_cell(xyo+Vector2i(-1, -i), 0, Vector2i(14, 7))
 		0 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
 			dx += 1

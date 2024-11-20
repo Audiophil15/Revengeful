@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsilwi811xn0d"]
+
+[ext_resource type="Script" path="res://Scripts/healthbar.gd" id="1_p7aht"]
+
+[node name="Healthbar" type="Node2D"]
+script = ExtResource("1_p7aht")
+
+[node name="Healthbar bg" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 14, 0)
+default_color = Color(0, 0, 0, 0.658824)
+
+[node name="Healthbar fg" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 14, 0)
+default_color = Color(0.8, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_top = 3.0
+offset_right = 40.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 18
+text = "blabla"

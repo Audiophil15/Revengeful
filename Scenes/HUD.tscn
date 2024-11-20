@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvxnhqf38j1xy"]
+
+[ext_resource type="PackedScene" uid="uid://bsilwi811xn0d" path="res://Scenes/Healthbar.tscn" id="1_32kr4"]
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_wogyw"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wogyw")
+
+[node name="Player Healthbar" parent="." instance=ExtResource("1_32kr4")]
+position = Vector2(34, 668)
+length = 20.0
