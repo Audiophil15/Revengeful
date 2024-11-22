@@ -46,6 +46,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 
+	if position.y > 800 :
+		life = 0
+
 	if life <= 0 :
 		isdead = true
 
@@ -69,7 +72,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("game_attack_1") :
 		isattacking = 1
 	if Input.is_action_just_pressed("game_attack_2") :
-		isattacking = 2
+		pass
+		#isattacking = 2
 	if Input.is_action_just_pressed("game_dodge") and candash :
 		isdashing = 1
 		candash = 0
@@ -103,13 +107,17 @@ func _physics_process(delta: float) -> void:
 	if ishurt or isdead :
 		direction = 0
 	
-	print("pos: %s dir: %s aemalus: %s iatk: %s isdsh: %s isofl: %s vel.x: %s totlife: %s maxlife: %s life: %s" % [position, direction, aerialmalus, isattacking, isdashing, is_on_floor(), velocity.x, totallife, maxlife, life])
-	print("isdead: %s hasdied: %s ishurt: %s interpt: %s hurtbox: %s" % [isdead, hasdied, ishurt, interruptable, not $Hurtbox/CollisionShape2D.disabled])
+	#print("pos: %s dir: %s aemalus: %s iatk: %s isdsh: %s isofl: %s vel.x: %s totlife: %s maxlife: %s life: %s" % [position, direction, aerialmalus, isattacking, isdashing, is_on_floor(), velocity.x, totallife, maxlife, life])
+	#print("isdead: %s hasdied: %s ishurt: %s interpt: %s hurtbox: %s" % [isdead, hasdied, ishurt, interruptable, not $Hurtbox/CollisionShape2D.disabled])
 
 	if isdead and not hasdied:
 		hasdied = true
 		interruptable = false
 		$AnimationPlayer.play("Death")
+		if not $SFXPlayer.playing :
+			var sound = load("res://Art/Audio/Sounds/ninja death.ogg")
+			$SFXPlayer.stream = sound
+			$SFXPlayer.play()
 		await $AnimationPlayer.animation_finished
 		emit_signal("dead")
 
@@ -131,6 +139,11 @@ func _physics_process(delta: float) -> void:
 				$AnimationPlayer.play("Attack 1 Left")
 			else :
 				$AnimationPlayer.play("Attack 1 Right")
+			var s = randi_range(1, 4)
+			if not $SFXPlayer.playing :
+				var sound = load("res://Art/Audio/Sounds/ninja 1-%s.ogg" % [s])
+				$SFXPlayer.stream = sound
+				$SFXPlayer.play()
 		if isattacking == 2 :
 			if $Sprite2D.flip_h :
 				$AnimationPlayer.play("Attack 2 Left")
@@ -153,7 +166,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		gethurt(Globals.enemiesdamages[id])
 
 func gethurt(damage) :
-	life -= damage
+	life = max(0, life-damage)
 	ishurt = true
 	
 func reducemaxlife(qty) :

@@ -48,6 +48,9 @@ func _physics_process(delta: float) -> void:
 		$"Healthbar bg".visible = true
 		$"Healthbar fg".visible = true
 	$"Healthbar fg".scale.x = max(0, life)/totallife
+	
+	if Globals.playerlife == 0 :
+		isfollowing = false
 
 	if life <= 0 :
 		isdead = true
@@ -106,7 +109,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x *= 1.8
 		velocity.y = 0
 
-	#print("pos: %s dir: %s aemalus: %s iatk: %s isdsh: %s isofl: %s vel.x: %s totlife: %s maxlife: %s life: %s" % [position, direction, aerialmalus, isattacking, isdashing, is_on_floor(), velocity.x, totallife, maxlife, life])
+	#print("pos: %s dir: %s aemalus: %s iatk: %s isdsh: %s isofl: %s vel.x: %s maxlife: %s totlife: %s life: %s" % [position, direction, aerialmalus, isattacking, isdashing, is_on_floor(), velocity.x, maxlife, totallife, life])
 	#print("hurtbox: %s" % [not $Hurtbox/CollisionShape2D.disabled])
 	
 	if isdead :
@@ -133,6 +136,11 @@ func _physics_process(delta: float) -> void:
 				$AnimationPlayer.play("Attack 1 Left")
 			else :
 				$AnimationPlayer.play("Attack 1 Right")
+			var s = randi_range(1, 2)
+			if not $SFXPlayer.playing :
+				var sound = load("res://Art/Audio/Sounds/enemy 1-%s.ogg" % [s])
+				$SFXPlayer.stream = sound
+				$SFXPlayer.play()
 		if isattacking == 2 :
 			if $Sprite2D.flip_h :
 				$AnimationPlayer.play("Attack 2 Left")

@@ -1020,4 +1020,6 @@ texture = ExtResource("3_u63vv")
 hframes = 6
 frame = 4
 
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -15,3 +15,12 @@ script = ExtResource("1_wogyw")
 [node name="Player Healthbar" parent="." instance=ExtResource("1_32kr4")]
 position = Vector2(34, 668)
 length = 20.0
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 119.0
+offset_top = 673.0
+offset_right = 171.0
+offset_bottom = 696.0
+text = "50/100"

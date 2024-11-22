@@ -473,7 +473,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_gnmfo"]
 resource_name = "Hurt"
-length = 0.25
+length = 0.2
 step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -518,7 +518,7 @@ tracks/3/path = NodePath("Sprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.025, 0.05, 0.15, 0.2),
+"times": PackedFloat32Array(0, 0.025, 0.05, 0.1, 0.15),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
@@ -530,7 +530,7 @@ tracks/4/path = NodePath("Hurtbox/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.025, 0.25),
+"times": PackedFloat32Array(0.025, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -542,7 +542,7 @@ tracks/5/path = NodePath(".:interruptable")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -554,7 +554,7 @@ tracks/6/path = NodePath(".:ishurt")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.15),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
@@ -1034,6 +1034,8 @@ position = Vector2(-7, -29)
 points = PackedVector2Array(0, 0, 14, 0)
 width = 2.0
 default_color = Color(0.8, 0, 0, 1)
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Sight" to="." method="_on_sight_body_entered"]
