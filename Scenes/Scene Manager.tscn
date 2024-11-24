@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://htyb63eevoux"]
+[gd_scene load_steps=4 format=3 uid="uid://htyb63eevoux"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_3wgkl"]
+[ext_resource type="PackedScene" uid="uid://cvxnhqf38j1xy" path="res://Scenes/HUD.tscn" id="2_c7rem"]
+[ext_resource type="PackedScene" uid="uid://b3xs5p2aghold" path="res://Scenes/Pause.tscn" id="3_lxd2h"]
 
 [node name="Game Manager" type="Control"]
 process_mode = 3
@@ -12,6 +14,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3wgkl")
 
+[node name="HUD Layer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="HUD" parent="HUD Layer" instance=ExtResource("2_c7rem")]
+
+[node name="Pause Layer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Pause Menu" parent="Pause Layer" instance=ExtResource("3_lxd2h")]
+mouse_filter = 2
+
 [node name="Pausable" type="Control" parent="."]
 process_mode = 1
 layout_mode = 1
@@ -21,12 +34,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Pausebg" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.13, 0.0716083, 0.0663, 0.470588)
+[connection signal="btnplay" from="Pause Layer/Pause Menu" to="." method="resumegame"]
+[connection signal="btnquit" from="Pause Layer/Pause Menu" to="." method="quitgame"]
+[connection signal="btnreset" from="Pause Layer/Pause Menu" to="." method="resetgame"]

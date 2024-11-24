@@ -13,7 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_wogyw")
 
 [node name="Player Healthbar" parent="." instance=ExtResource("1_32kr4")]
-position = Vector2(34, 668)
+position = Vector2(59, 960)
 length = 20.0
 
 [node name="Label" type="Label" parent="."]

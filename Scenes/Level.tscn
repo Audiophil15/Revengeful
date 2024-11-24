@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://chrdrrx4sur8g"]
+[gd_scene load_steps=5 format=3 uid="uid://chrdrrx4sur8g"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_ncn52"]
 [ext_resource type="PackedScene" uid="uid://d35l7y647xkvb" path="res://Scenes/Map.tscn" id="1_sku0v"]
 [ext_resource type="PackedScene" uid="uid://fhgw75jhgswn" path="res://Scenes/Player.tscn" id="2_ku6wg"]
-[ext_resource type="PackedScene" uid="uid://cvxnhqf38j1xy" path="res://Scenes/HUD.tscn" id="4_2ucti"]
-[ext_resource type="Texture2D" uid="uid://bntd7vph0an7g" path="res://Art/Sprites/Map/Ninja Asset Pack/Background/Layers/0.png" id="5_7i25k"]
+[ext_resource type="Texture2D" uid="uid://cp2epfhjrdii6" path="res://Art/Sprites/Map/Ninja Asset Pack/Background/Layers/0-ex.png" id="4_ypcdk"]
 
 [node name="Level" type="Control"]
 layout_mode = 3
@@ -15,14 +14,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ncn52")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("4_2ucti")]
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -205.0
+offset_right = 31680.0
+offset_bottom = -513.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ypcdk")
+stretch_mode = 1
 
 [node name="Map" parent="." instance=ExtResource("1_sku0v")]
 
 [node name="Player" parent="." instance=ExtResource("2_ku6wg")]
-position = Vector2(543, 289)
+position = Vector2(44, 398)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3.855, 3.855)
@@ -30,12 +38,5 @@ limit_left = 0
 limit_top = 0
 limit_bottom = 1080
 position_smoothing_enabled = true
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 1284.0
-offset_bottom = 216.0
-texture = ExtResource("5_7i25k")
-stretch_mode = 1
 
 [connection signal="dead" from="Player" to="." method="_on_player_dead"]

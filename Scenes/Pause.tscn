@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b76gio6a8n4iy"]
+[gd_scene load_steps=5 format=3 uid="uid://b3xs5p2aghold"]
 
-[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_hlety"]
-[ext_resource type="Texture2D" uid="uid://cgifghrb5sjmg" path="res://Art/REvengeful.png" id="2_2li8e"]
+[ext_resource type="Script" path="res://Scripts/pause.gd" id="1_nxerj"]
 
 [sub_resource type="FontVariation" id="FontVariation_kq4ym"]
 
@@ -44,20 +43,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_hlety")
+script = ExtResource("1_nxerj")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -354.0
-offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_2li8e")
-expand_mode = 5
-stretch_mode = 6
+color = Color(0.22, 0.22, 0.22, 0.784314)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -73,17 +68,24 @@ offset_bottom = 186.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-
-[node name="StartButton" type="Button" parent="VBoxContainer"]
+[node name="Resume" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_kq4ym")
 theme_override_font_sizes/font_size = 100
-text = "Start"
+text = "Resume"
 script = SubResource("GDScript_ru4k8")
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="Restart entire game" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_kq4ym")
+theme_override_font_sizes/font_size = 100
+text = "Reset"
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
@@ -96,5 +98,6 @@ theme_override_font_sizes/font_size = 100
 text = "Quit"
 script = SubResource("GDScript_2aqp6")
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Restart entire game" to="." method="_on_restart_entire_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

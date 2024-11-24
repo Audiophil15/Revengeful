@@ -23,8 +23,7 @@ func _ready() -> void:
 	tilexyinf = Vector2i()
 	tilexysup = Vector2i()
 
-func testmap() -> void :
-	var v = Vector2i(0,50)
+func testmap(v) -> void :
 	tilexyinf = v+Vector2i(0,-50)
 	v = generatechunk(-1, v)
 	for k in range(8) :
@@ -36,12 +35,13 @@ func testmap() -> void :
 	tilexysup = v+Vector2i(0,+100)
 	fillground()
 
-func generatemap(xyo, xye, length, matrix) :
-	var seq = $Map.generatesequence(length, $Map.markovmatrix)
+func generatemap(xyo, length, matrix) :
+	var seq = generatesequence(length, matrix)
 	tilexyinf = xyo+Vector2i(0,-50)
-	xyo = $Map.sequencetotiles(seq, xyo)
+	xyo = sequencetotiles(seq, xyo)
 	tilexysup = xyo+Vector2i(0,+100)
 	fillground()
+	return xyo
 
 func generatetable(sizex, sizey) -> Array :
 	var table = []
@@ -84,7 +84,7 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			ground.append(xyo+Vector2i(0, 1))
 			dx += 1
 			
-			if (randf()<0.01) :
+			if xyo[0] >= 15 and (randf()<0.05) :
 				addEnemy(xyo+Vector2i(dx,dy))
 		1 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
@@ -128,7 +128,8 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 				$Ground.set_cell(xyo+Vector2i(3+i, -2), 0, Vector2i(3, 4))
 			dx += 6 + span # 2 of ground and 1 of platform each side + the span of the middle part
 			
-			addEnemy(Vector2(xyo)+Vector2(dx/2, dy))
+			if randf()<0.75 :
+				addEnemy(Vector2(xyo)+Vector2(dx/2, dy))
 		6 :
 			for i in range(3) :
 				for j in range(4) :
@@ -137,6 +138,9 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 				$Ground.set_cell(xyo+Vector2i((i+1)*4, -i), 0, Vector2i(3, 12))
 			dx += 3*4
 			dy += -2
+			
+			if randf()<0.5 :
+				addEnemy(Vector2(xyo)+Vector2(dx/2, 0))
 		7 :
 			for i in range(3) :
 				for j in range(4) :
@@ -145,6 +149,9 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 				$Ground.set_cell(xyo+Vector2i((i+1)*4-1, i+1), 0, Vector2i(1, 12))
 			dx += 3*4
 			dy += 2
+			
+			if randf()<0.5 :
+				addEnemy(Vector2(xyo)+Vector2(dx/2, 2))
 		8 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
 			$Ground.set_cell(xyo+Vector2i(1, 0), 0, Vector2i(14, 6))
@@ -162,6 +169,10 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			$Ground.set_cell(xyo+Vector2i(1, -1), 0, Vector2i(4, 3))
 			#$Ground.set_cell(xyo+Vector2i(3, -1), 0, Vector2i(4, 3))
 			dx += 2
+		11 :
+			$doors.set_cell(xyo+Vector2i(0, -4), 0, Vector2i(6, 10))
+			
+			
 		_ :
 			push_warning("Wrong chunk ID")
 			pass

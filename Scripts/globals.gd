@@ -6,6 +6,7 @@ var playerisonfloor = true
 var playerhitboxes = []
 var playerlife :float
 var playertotallife :float
+var playermaxlife :float
 
 var enemiesplacement = []
 var enemiesIDs = []

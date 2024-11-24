@@ -4,30 +4,37 @@ signal tomainmenu
 
 var enemyscene = preload("res://Scenes/Enemy 1.tscn")
 
+var xyo
+var initialplayerpos
+
 func _ready() -> void:
-	$Camera2D.position = $Player.position
+	Globals.enemiesplacement = []
 	
 	# Map generation
-	var xyo = Vector2i(0, 50)
-	$Map.testmap()
-	#var seq = $Map.generatesequence(100, $Map.markovmatrix)
-	#$Map.sequencetotiles(seq, xyo)
-	#$Map.fillground()
+	xyo = Vector2i(0, 25)
+	
+	initialplayerpos = Vector2(5, 16*xyo[1]-100)
+	#$Map.testmap(xyo)
+	xyo = $Map.generatemap(xyo, 150, $Map.markovmatrix)
+	print(xyo, xyo[0]*16)
+	$Camera2D.position = $Player.position
+	$Camera2D.limit_right = xyo[0]*16
 	
 	# Enemies added according to the map info
 	#print(Globals.enemiesplacement)
 	for pos in Globals.enemiesplacement :
+		#continue
 		var enemy = enemyscene.instantiate()
 		enemy.position = pos
 		enemy.positionrange = [pos.x-50, pos.x+50]
 		add_child(enemy)
 	
 	# Preparing the player
-	$Player.position = Vector2(5, 750)
+	$Player.position = initialplayerpos
 	$Player.settotallife($Player.maxlife)
 
 func _process(delta: float) -> void:
 	$Camera2D.position = $Player.position
 
 func _on_player_dead() -> void:
-	$Player.rebirth(Vector2(5, 750))
+	$Player.rebirth(initialplayerpos)

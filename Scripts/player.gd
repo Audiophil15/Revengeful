@@ -25,6 +25,7 @@ func _ready() -> void:
 	Globals.playerhitboxes.append($"Hitbox Left".get_instance_id())
 	Globals.playerhitboxes.append($"Hitbox Right".get_instance_id())
 	Globals.playertotallife = totallife
+	Globals.playermaxlife = maxlife
 	interruptable = 1
 	isjumping = 0
 	isattacking = 0

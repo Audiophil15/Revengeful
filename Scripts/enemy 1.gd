@@ -64,7 +64,7 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	directionold = direction
-	direction = Maths.weightedchoice([-1,0,1], walkmatrix[direction+1]) #Input.get_axis("game_left", "game_right")
+	direction = Maths.weightedchoice([-1,0,1], walkmatrix[direction+1])
 	if not isfollowing :
 		if position.x < positionrange[0] :
 			direction = min(direction+1, 1)

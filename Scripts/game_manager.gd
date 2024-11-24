@@ -14,18 +14,32 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$Pausebg.position = Globals.playerpos
 	if Input.is_action_just_pressed("game_pause") :
 		if instancelevel != null and instancelevel.is_inside_tree() :
-			get_tree().paused = !get_tree().paused
-			if get_tree().paused :
-				$Pausebg.visible = true
-			else :
-				$Pausebg.visible = false
+			setpause(!get_tree().paused)
 
+func resumegame() :
+	print("should resume")
+	setpause(0)
+
+func setpause(ouinon) :
+	get_tree().paused = ouinon
+	if ouinon :
+		$"Pause Layer".visible = true
+	else :
+		$"Pause Layer".visible = false
+
+func resetgame() :
+	if instancelevel != null and instancelevel.is_inside_tree() :
+		$Pausable.remove_child(instancelevel)
+	#Globals.playertotallife = Globals.playermaxlife
+	loadlevel(0)
+	setpause(0)
+	
 func loadmainmenu() :
 	if instancelevel != null and instancelevel.is_inside_tree() :
 		$Pausable.remove_child(instancelevel)
+	$"HUD Layer".visible = false
 	instancemenu = scenemenu.instantiate()
 	$Pausable.add_child(instancemenu)
 	instancemenu.connect("btnplay", loadlevel)
@@ -36,6 +50,7 @@ func loadlevel(num) :
 		$Pausable.remove_child(instancemenu)
 	instancelevel = scenelevel.instantiate()
 	$Pausable.add_child(instancelevel)
+	$"HUD Layer".visible = true
 	
 	instancelevel.connect("tomainmenu", loadmainmenu)
 	

@@ -118,8 +118,6 @@ texture = ExtResource("1_jt7ep")
 2:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:10/0 = 0
 3:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-6:10/0 = 0
-7:10/0 = 0
 8:10/0 = 0
 9:10/0 = 0
 13:10/0 = 0
@@ -129,8 +127,6 @@ texture = ExtResource("1_jt7ep")
 3:11/0 = 0
 3:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:11/0 = 0
-6:11/0 = 0
-7:11/0 = 0
 8:11/0 = 0
 9:11/0 = 0
 10:11/0 = 0
@@ -146,24 +142,18 @@ texture = ExtResource("1_jt7ep")
 2:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:12/0 = 0
 3:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-6:12/0 = 0
-7:12/0 = 0
 8:12/0 = 0
 9:12/0 = 0
 11:12/0 = 0
 11:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 13:12/0 = 0
 14:12/0 = 0
-6:13/0 = 0
-7:13/0 = 0
 8:13/0 = 0
 9:13/0 = 0
 11:13/0 = 0
 11:13/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 13:13/0 = 0
 14:13/0 = 0
-6:14/0 = 0
-7:14/0 = 0
 8:14/0 = 0
 9:14/0 = 0
 13:14/0 = 0
@@ -196,14 +186,20 @@ texture = ExtResource("1_jt7ep")
 11:9/0 = 0
 4:6/0 = 0
 4:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:10/size_in_atlas = Vector2i(2, 5)
+6:10/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fovcp"]
-physics_layer_0/collision_layer = 15
+physics_layer_0/collision_layer = 0
 sources/0 = SubResource("TileSetAtlasSource_5ftnf")
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_aimwp")
 
 [node name="Ground" type="TileMapLayer" parent="."]
+use_parent_material = true
+tile_set = SubResource("TileSet_fovcp")
+
+[node name="Doors" type="TileMapLayer" parent="."]
 use_parent_material = true
 tile_set = SubResource("TileSet_fovcp")
