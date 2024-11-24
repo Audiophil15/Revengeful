@@ -17,7 +17,7 @@ var direction :int
 var directionold :int
 var isdead :bool
 var hasdied :bool
-const horizontalspeed = 140.0
+const horizontalspeed = 120.0
 const jumpvelocity = -300.0
 
 func _ready() -> void:

@@ -12,9 +12,10 @@ func _ready() -> void:
 	$Map.testmap()
 	#var seq = $Map.generatesequence(100, $Map.markovmatrix)
 	#$Map.sequencetotiles(seq, xyo)
+	#$Map.fillground()
 	
 	# Enemies added according to the map info
-	print(Globals.enemiesplacement)
+	#print(Globals.enemiesplacement)
 	for pos in Globals.enemiesplacement :
 		var enemy = enemyscene.instantiate()
 		enemy.position = pos
