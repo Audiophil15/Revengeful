@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4c4rwgab0t84"]
+
+[ext_resource type="Texture2D" uid="uid://r2jkshfjkri1" path="res://Art/Sprites/Map/Ninja Asset Pack/Tiles/Door.png" id="1_ewvaa"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="2_54khr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crtrw"]
+size = Vector2(14, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsjm1"]
+size = Vector2(42, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyan6"]
+size = Vector2(31, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouael"]
+size = Vector2(5, 49)
+
+[node name="Door" type="Sprite2D"]
+z_index = 2000
+z_as_relative = false
+texture = ExtResource("1_ewvaa")
+offset = Vector2(29, -39)
+script = ExtResource("2_54khr")
+
+[node name="Fond" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fond"]
+position = Vector2(51, -38)
+shape = SubResource("RectangleShape2D_crtrw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(37, -59)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_qsjm1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(5.5, -10.5)
+shape = SubResource("RectangleShape2D_yyan6")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(18.5, 34.5)
+shape = SubResource("RectangleShape2D_ouael")
+
+[connection signal="body_entered" from="Fond" to="." method="_on_fond_body_entered"]

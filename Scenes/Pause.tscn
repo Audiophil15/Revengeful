@@ -77,6 +77,7 @@ text = "Resume"
 script = SubResource("GDScript_ru4k8")
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
@@ -88,6 +89,7 @@ theme_override_font_sizes/font_size = 100
 text = "Reset"
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 

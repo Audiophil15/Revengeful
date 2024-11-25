@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_ncn52"]
 [ext_resource type="PackedScene" uid="uid://d35l7y647xkvb" path="res://Scenes/Map.tscn" id="1_sku0v"]
-[ext_resource type="PackedScene" uid="uid://fhgw75jhgswn" path="res://Scenes/Player.tscn" id="2_ku6wg"]
+[ext_resource type="PackedScene" uid="uid://bq12pjitjtsxb" path="res://Scenes/Camera.tscn" id="4_cjukf"]
 [ext_resource type="Texture2D" uid="uid://cp2epfhjrdii6" path="res://Art/Sprites/Map/Ninja Asset Pack/Background/Layers/0-ex.png" id="4_ypcdk"]
 
 [node name="Level" type="Control"]
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ncn52")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,14 +29,4 @@ stretch_mode = 1
 
 [node name="Map" parent="." instance=ExtResource("1_sku0v")]
 
-[node name="Player" parent="." instance=ExtResource("2_ku6wg")]
-position = Vector2(44, 398)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.855, 3.855)
-limit_left = 0
-limit_top = 0
-limit_bottom = 1080
-position_smoothing_enabled = true
-
-[connection signal="dead" from="Player" to="." method="_on_player_dead"]
+[node name="Camera" parent="." instance=ExtResource("4_cjukf")]

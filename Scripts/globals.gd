@@ -12,4 +12,6 @@ var enemiesplacement = []
 var enemiesIDs = []
 var enemiesdamages = {}
 
+var BossID = -1
+
 var runstart = 0

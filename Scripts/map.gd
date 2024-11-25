@@ -16,6 +16,9 @@ const markovmatrix = [
 
 var tilexyinf
 var tilexysup
+var islevel = true
+
+var doorscene = preload("res://Scenes/Door.tscn")
 
 const test = 0
 
@@ -35,11 +38,24 @@ func testmap(v) -> void :
 	tilexysup = v+Vector2i(0,+100)
 	fillground()
 
-func generatemap(xyo, length, matrix) :
+func generatelevel(xyo, length, matrix) :
 	var seq = generatesequence(length, matrix)
 	tilexyinf = xyo+Vector2i(0,-50)
 	xyo = sequencetotiles(seq, xyo)
-	tilexysup = xyo+Vector2i(0,+100)
+	tilexysup = xyo+Vector2i(0,+200)
+	fillground()
+	return xyo
+	
+func generatebossroom(xyo) :
+	var seq = [-1,0,0,0,0,0,0,-22]
+	for i in range(35) :
+		seq.append(0)
+	seq.append(-21)
+	seq.append(0)
+	seq.append(-1)
+	tilexyinf = xyo+Vector2i(0,-50)
+	xyo = sequencetotiles(seq, xyo)
+	tilexysup = xyo+Vector2i(0,+200)
 	fillground()
 	return xyo
 
@@ -52,12 +68,18 @@ func generatetable(sizex, sizey) -> Array :
 	return table
 
 func generatesequence(len, mm) -> Array  :
-	var seq = [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	var seq = [-1]
+	for i in range(15) :
+		seq.append(-10)
 	var values = range(11)
 	var c = 0
 	for i in range(len-1) :
 		c = Maths.weightedchoice(values, mm[c])
 		seq.append(c)
+	for i in range(16) :
+		seq.append(-10)
+	if islevel :
+		seq.append(-21)
 	return seq
 
 func addEnemy(cellpos) :
@@ -84,8 +106,12 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			ground.append(xyo+Vector2i(0, 1))
 			dx += 1
 			
-			if xyo[0] >= 15 and (randf()<0.1) :
+			if (randf()<0.1) :
 				addEnemy(xyo+Vector2i(dx,dy))
+		-10 :
+			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
+			ground.append(xyo+Vector2i(0, 1))
+			dx += 1
 		1 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
 			$Ground.set_cell(xyo+Vector2i(1,0), 0, Vector2i(3, 12))
@@ -169,10 +195,15 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			$Ground.set_cell(xyo+Vector2i(1, -1), 0, Vector2i(4, 3))
 			#$Ground.set_cell(xyo+Vector2i(3, -1), 0, Vector2i(4, 3))
 			dx += 2
-		11 :
-			$doors.set_cell(xyo+Vector2i(0, -4), 0, Vector2i(6, 10))
-			
-			
+		-21 :
+			var doorinstance = doorscene.instantiate()
+			doorinstance.position = (xyo-Vector2i(3,0))*16
+			add_child(doorinstance)
+		-22 :
+			var doorinstance = doorscene.instantiate()
+			doorinstance.position = (xyo-Vector2i(3,0))*16
+			doorinstance.scale.x = -1
+			add_child(doorinstance)
 		_ :
 			push_warning("Wrong chunk ID")
 			pass

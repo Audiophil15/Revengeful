@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://njcq0r45t5x3"]
+
+[ext_resource type="Script" path="res://Scripts/bossroom.gd" id="1_hkrxt"]
+[ext_resource type="Texture2D" uid="uid://cp2epfhjrdii6" path="res://Art/Sprites/Map/Ninja Asset Pack/Background/Layers/0-ex.png" id="2_wip5p"]
+[ext_resource type="PackedScene" uid="uid://d35l7y647xkvb" path="res://Scenes/Map.tscn" id="3_wvkvv"]
+[ext_resource type="PackedScene" uid="uid://bq12pjitjtsxb" path="res://Scenes/Camera.tscn" id="4_1ri5r"]
+
+[node name="Boss Room" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hkrxt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -205.0
+offset_right = 31680.0
+offset_bottom = -513.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wip5p")
+stretch_mode = 1
+
+[node name="Map" parent="." instance=ExtResource("3_wvkvv")]
+
+[node name="Camera" parent="." instance=ExtResource("4_1ri5r")]

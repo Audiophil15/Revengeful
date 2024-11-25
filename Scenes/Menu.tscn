@@ -74,6 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
@@ -86,6 +87,7 @@ text = "Start"
 script = SubResource("GDScript_ru4k8")
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 

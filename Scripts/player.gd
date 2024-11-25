@@ -24,8 +24,8 @@ func _ready() -> void:
 	Globals.PlayerID = self.get_instance_id()
 	Globals.playerhitboxes.append($"Hitbox Left".get_instance_id())
 	Globals.playerhitboxes.append($"Hitbox Right".get_instance_id())
-	Globals.playertotallife = totallife
 	Globals.playermaxlife = maxlife
+	Globals.playertotallife = maxlife
 	interruptable = 1
 	isjumping = 0
 	isattacking = 0
@@ -107,13 +107,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0
 	if ishurt or isdead :
 		direction = 0
-	
-	#print("pos: %s dir: %s aemalus: %s iatk: %s isdsh: %s isofl: %s vel.x: %s totlife: %s maxlife: %s life: %s" % [position, direction, aerialmalus, isattacking, isdashing, is_on_floor(), velocity.x, totallife, maxlife, life])
-	#print("isdead: %s hasdied: %s ishurt: %s interpt: %s hurtbox: %s" % [isdead, hasdied, ishurt, interruptable, not $Hurtbox/CollisionShape2D.disabled])
 
 	if isdead and not hasdied:
 		hasdied = true
 		interruptable = false
+		$AnimationPlayer.stop()
 		$AnimationPlayer.play("Death")
 		if not $SFXPlayer.playing :
 			var sound = load("res://Art/Audio/Sounds/ninja death.ogg")
@@ -122,9 +120,12 @@ func _physics_process(delta: float) -> void:
 		await $AnimationPlayer.animation_finished
 		emit_signal("dead")
 
-	if ishurt :
+	if ishurt and not isdead :
 		$AnimationPlayer.play("Hurt")
 		interruptable = false
+#
+	#print("pos: %s dir: %s aemalus: %s iatk: %s isdsh: %s isofl: %s vel.x: %s totlife: %s maxlife: %s life: %s" % [position, direction, aerialmalus, isattacking, isdashing, is_on_floor(), velocity.x, totallife, maxlife, life])
+	#print("isdead: %s hasdied: %s ishurt: %s interpt: %s hurtbox: %s" % [isdead, hasdied, ishurt, interruptable, not $Hurtbox/CollisionShape2D.disabled])
 
 	if interruptable :	# Some actions may not be interruptable, like death
 		if not direction and is_on_floor() and not isattacking :
@@ -160,10 +161,10 @@ func _physics_process(delta: float) -> void:
 	Globals.playerisonfloor = is_on_floor()
 	Globals.playertotallife = totallife
 	Globals.playerlife = life
-
+	
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var id = area.get_parent().get_instance_id()
-	if id in Globals.enemiesIDs :
+	if id in Globals.enemiesIDs or id == Globals.BossID :
 		gethurt(Globals.enemiesdamages[id])
 
 func gethurt(damage) :
@@ -172,10 +173,6 @@ func gethurt(damage) :
 	
 func reducemaxlife(qty) :
 	maxlife -= qty
-	
-func death() :
-	$AnimationPlayer.play("Death")
-	emit_signal("dead")
 	
 func settotallife(amount) :
 	totallife = min(amount, maxlife)
@@ -187,3 +184,8 @@ func rebirth(position) :
 	interruptable = true
 	settotallife(totallife*0.9)
 	self.position = position
+
+
+
+func _on_hitbox_right_body_entered(body: Node2D) -> void:
+	print(body) # Replace with function body.

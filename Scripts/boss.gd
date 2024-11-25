@@ -16,7 +16,7 @@ var candash :bool
 var aerialmalus :bool
 var direction :int
 var directionold :int
-const horizontalspeed = 20.0
+const horizontalspeed = 110.0
 const jumpvelocity = -300.0
 var isfollowing :bool
 var isdead :bool
@@ -24,8 +24,8 @@ var isdead :bool
 const walkmatrix = [[0.985, 0.015, 0.0], [0.005, 0.99, 0.005], [0.0, 0.015, 0.985]]
 
 func _ready() -> void:
-	Globals.enemiesIDs.append(self.get_instance_id())
-	Globals.enemiesdamages[self.get_instance_id()] = 9
+	Globals.BossID = self.get_instance_id()
+	Globals.enemiesdamages[self.get_instance_id()] = 15
 	interruptable = 1
 	isjumping = 0
 	isattacking = 0
@@ -44,8 +44,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 
-	if position.y > 800 :
-		life = 0
+	print($Hurtbox/CollisionShape2D.disabled)
 
 	if life < totallife :
 		$"Healthbar bg".visible = true
@@ -121,7 +120,7 @@ func _physics_process(delta: float) -> void:
 		await $AnimationPlayer.animation_finished
 		self.queue_free()
 	
-	if ishurt :
+	if ishurt and not isdead :
 		$AnimationPlayer.play("Hurt")
 		interruptable = false
 
@@ -169,4 +168,4 @@ func _on_sight_extended_body_exited(body: Node2D) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.get_instance_id() in Globals.playerhitboxes :
 		ishurt = true
-		life -= 35
+		life -= 15
