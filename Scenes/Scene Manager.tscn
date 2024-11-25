@@ -15,9 +15,16 @@ grow_vertical = 2
 script = ExtResource("1_3wgkl")
 
 [node name="HUD Layer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="HUD" parent="HUD Layer" instance=ExtResource("2_c7rem")]
+
+[node name="Label" type="Label" parent="HUD Layer"]
+offset_left = 1681.0
+offset_top = 965.0
+offset_right = 1753.0
+offset_bottom = 988.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.584314)
+text = "blablabla"
 
 [node name="Pause Layer" type="CanvasLayer" parent="."]
 visible = false
@@ -33,6 +40,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -14.625
 
 [connection signal="btnplay" from="Pause Layer/Pause Menu" to="." method="resumegame"]
 [connection signal="btnquit" from="Pause Layer/Pause Menu" to="." method="quitgame"]

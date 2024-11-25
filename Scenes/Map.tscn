@@ -190,7 +190,7 @@ texture = ExtResource("1_jt7ep")
 6:10/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fovcp"]
-physics_layer_0/collision_layer = 0
+physics_layer_0/collision_layer = 15
 sources/0 = SubResource("TileSetAtlasSource_5ftnf")
 
 [node name="Map" type="Node2D"]

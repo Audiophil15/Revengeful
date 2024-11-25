@@ -11,3 +11,5 @@ var playermaxlife :float
 var enemiesplacement = []
 var enemiesIDs = []
 var enemiesdamages = {}
+
+var runstart = 0

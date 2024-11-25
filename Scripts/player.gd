@@ -184,5 +184,6 @@ func settotallife(amount) :
 func rebirth(position) :
 	isdead = false
 	hasdied = false
+	interruptable = true
 	settotallife(totallife*0.9)
 	self.position = position

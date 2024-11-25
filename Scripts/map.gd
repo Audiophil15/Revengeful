@@ -84,7 +84,7 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			ground.append(xyo+Vector2i(0, 1))
 			dx += 1
 			
-			if xyo[0] >= 15 and (randf()<0.05) :
+			if xyo[0] >= 15 and (randf()<0.1) :
 				addEnemy(xyo+Vector2i(dx,dy))
 		1 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
@@ -128,7 +128,7 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 				$Ground.set_cell(xyo+Vector2i(3+i, -2), 0, Vector2i(3, 4))
 			dx += 6 + span # 2 of ground and 1 of platform each side + the span of the middle part
 			
-			if randf()<0.75 :
+			if randf()<0.95 :
 				addEnemy(Vector2(xyo)+Vector2(dx/2, dy))
 		6 :
 			for i in range(3) :
@@ -139,7 +139,7 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			dx += 3*4
 			dy += -2
 			
-			if randf()<0.5 :
+			if randf()<0.85 :
 				addEnemy(Vector2(xyo)+Vector2(dx/2, 0))
 		7 :
 			for i in range(3) :
@@ -150,7 +150,7 @@ func generatechunk(id: int, xyo: Vector2i) -> Vector2i :
 			dx += 3*4
 			dy += 2
 			
-			if randf()<0.5 :
+			if randf()<0.85 :
 				addEnemy(Vector2(xyo)+Vector2(dx/2, 2))
 		8 :
 			$Ground.set_cell(xyo, 0, Vector2i(3, 6))
