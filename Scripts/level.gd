@@ -15,7 +15,7 @@ func _ready() -> void:
 	xyo = Vector2i(0, 25)
 	
 	#$Map.testmap(xyo)
-	xye = $Map.generatelevel(xyo, 20, $Map.markovmatrix)
+	xye = $Map.generatelevel(xyo, 100, $Map.markovmatrix)
 	$Map/Door.connect("playerentered", playerfinishedlevel)
 	
 	$Camera.limit_right = xye[0]*16
